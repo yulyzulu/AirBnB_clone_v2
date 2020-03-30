@@ -1,54 +1,81 @@
-# HBNB
+# AirBnB clone - The console
 
-This is the console /command interpreter for the Holberton Airbnb clone project. The console can be used to store objects in and retrieve objects from a JSON.
+![HBNB](./images/HBNB_Header.png)
 
-### Supported classes:
-* BaseModel
-* User
-* State
-* City
-* Amenity
-* Place
-* Review
+Project in which the base of the AirBnB clone will be created as a study method.
 
-### Commands:
-* create - create an object
-* show - show an object (based on id)
-* destroy - destroy an object
-* all - show all objects, of one type or all types
-* quit/EOF - quit the console
-* help - see descriptions of commands
+All knowledge acquired in python will be implemented, its base structure will be:
+ - Create the basic classes where the most basic attributes will be saved, such as the time it was created and its respective ```ID```.
+ - Create the basic methods that our interpreter will execute when we enter the commands corresponding to those methods.
+ - Verify each of the functions so that they execute with all possible cases to avoid errors.
+Each of these cases will be looked at later.
 
-To start, navigate to the project folder and enter `./console.py` in the shell.
+## First step: Write a command interpreter to manage your AirBnB objects:
+ This is the first step towards building your first full web application: the AirBnB clone. This first step is very important because you will use what you build during this project with all other following projects: HTML/CSS templating, database storage, API, front-end integration…
 
-#### Create
-`create <class name>`
-Ex:
-`create BaseModel`
+ Each task is linked and will help you to:
+  - put in place a parent ```class (called BaseModel)``` to take care of the initialization, serialization and deserialization of your future instances
+  - create a simple flow of serialization/deserialization: ```Instance <-> Dictionary <-> JSON string <-> file```
+  - create all classes used for AirBnB ```(User, State, City, Place…)``` that inherit from ```BaseModel```
+  - create the first abstracted storage engine of the project: ```File storage```.
+  - create all ```unittests``` to validate all our classes and storage engine
+## What’s a command interpreter?
+A command interpreter is the part of a computer operating system that understands and executes commands that are entered interactively by a human being or from a program. In some operating systems, the command interpreter is called the shell. But limited to a specific use-case. In our case, we want to be able to manage the objects of our project:
+ - Create a new object (ex: a new ```User``` or a new ```Place```)
+ - Retrieve an object from a file, a database etc…
+ - Do operations on objects (```count```, compute stats, etc…)
+ - ```Update``` attributes of an object
+ - ```Destroy``` an object
 
-#### Show
-`show <class name> <object id>`
-Ex:
-`show User my_id`
+## Technologies:
+In this project we used ```Python 3.4``` and was verified with ```pep8 1.7```
 
-#### Destroy
-`destroy <class name> <object id>`
-Ex:
-`destroy Place my_place_id`
+We import this modules to create the console:
+ - import cmd
+ - import sys
+ - import json
+ - import subprocess
 
-#### All
-`all` or `all <class name>`
-Ex:
-`all` or `all State`
+## Launch this Console:
+How to run a project?
 
-#### Quit
-`quit` or `EOF`
+You only need to run ```console.py``` file with this command ```./console.py```
 
-#### Help
-`help` or `help <command>`
-Ex:
-`help` or `help quit`
+This command must be executed in the root folder of the project like:
 
-Additionally, the console supports `<class name>.<command>(<parameters>)` syntax.
-Ex:
-`City.show(my_city_id)`
+```vagrant@vagrant-ubuntu-trusty-64:~/home/user/Documents/AirBnB_clone$ ./console.py```
+
+make sure all files are in the root directory.
+
+![Folder](./images/Folder.png)
+
+## Examples of use:
+First you need to run the ```console.py```
+
+Then you need to know the comands that the console can run:
+ - ```all```: Prints all string representation of all instances based or not on the class name.
+
+ sintax: ```all <class name>``` or ```all```
+ - ```create```: Creates a new instance of ```BaseModel```, saves it (to the JSON file) and prints the ```id```.
+
+  sintax: ```create <class name>```
+ - ```destroy```: Deletes an instance based on the class name and ```id``` (save the change into the JSON file).
+
+ sintax: ```destroy <class name> <id>```
+ - ```show```: Prints the string representation of an instance based on the class name and ```id```.
+
+ sintax: ```show <class name> <id>```
+ - ```update```: Updates an instance based on the class name and ```id``` by adding or updating attribute (save the change into the JSON file).
+
+ sintax: ```update <class name> <id> <attribute name> "<attribute value>"```
+If you need more info type: ```(hbnb) ?```or ```(hbnb) help```.
+
+Take from examples what you see in the follow image:
+![console](./images/console.png)
+
+## Inspiration:
+Project provided by [Holberton](https://www.holbertonschool.com)
+
+## By:
+[Yulieth Viviana Zuluaga Gómez](https://www.linkedin.com/in/yulieth-zuluaga-gómez-b97145122/) - 
+[Jonatan Mazo](https://www.linkedin.com/in/jonatan-ricardo-mazo-castro-75633390/)
