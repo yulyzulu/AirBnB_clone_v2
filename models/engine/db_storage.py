@@ -32,11 +32,11 @@ class DBStorage:
         if var_env == 'test':
             Base.metadata.drop_all(self.__engine)
 
-        session = Session(bind=self.__engine)
+       # session = Session(bind=self.__engine)
 
     def all(sel, cls=None):
         new_dic = {}
-        our_class = eval(cls)
+        our_class = eval(str(cls))
         if cls is not None:
             for param in self.__session.query(our_class):
                 new_dic[cls + "." + param.id] = param
