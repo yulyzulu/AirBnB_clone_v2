@@ -38,6 +38,11 @@ class DBStorage:
         new_dic = {}
         our_class = eval(str(cls))
         if cls is not None:
+            print("==============")
+            print("***")
+            print(cls)
+            print("***")
+            print("==============")
             for param in self.__session.query(our_class):
                 new_dic[cls + "." + param.id] = param
             return new_dic
