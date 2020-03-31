@@ -34,5 +34,29 @@ class DBStorage:
 
         session = Session(bind=self.__engine)
 
-    """ def all(sel, cls=None):
-        self.__engine.query() """
+    def all(sel, cls=None):
+        new_dic = {}
+        our_class = eval(cls)
+        if cls is not None:
+            for param in self.__session.query(our_class):
+                new_dic[cls + "." + param.id] = param
+            return new_dic
+        else:
+            return new_dic
+
+    def new(self, obj):
+        self.__session.add(obj)
+
+    def save(self):
+        self.__session.commit()
+
+    def delete(self, obj=None):
+        if obj is not None:
+            self.__session.delete(obj)
+            DBStorage.save()
+
+    def reload(self):
+        Base.metadata.create_all(self.__engine)
+        our_session = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(our_session)
+        self.__session = Session()
