@@ -11,6 +11,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from shlex import split
+import os
 
 
 class HBNBCommand(cmd.Cmd):
@@ -127,7 +128,14 @@ class HBNBCommand(cmd.Cmd):
         Exceptions:
             NameError: when there is no object taht has the name
         """
-        objects = storage.all()
+        if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+            if not line:
+                objects = storage.all(None)
+            else:
+                objects = storage.all(line)
+        else:
+            objects = storage.all()
+
         my_list = []
         if not line:
             for key in objects:

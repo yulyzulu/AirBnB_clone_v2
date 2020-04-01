@@ -5,7 +5,8 @@ from models.state import State
 from models.city import City
 from models.user import User
 from models.place import Place
-
+from models.amenity import Amenity
+from models.review import Review
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy import (create_engine)
 from sqlalchemy import MetaData
@@ -32,22 +33,21 @@ class DBStorage:
         if var_env == 'test':
             Base.metadata.drop_all(self.__engine)
 
-       # session = Session(bind=self.__engine)
 
-    def all(sel, cls=None):
+    def all(self, cls=None):
+        classes = [State, City, User, Place, Review, Amenity]
         new_dic = {}
-        our_class = eval(str(cls))
         if cls is not None:
-            print("==============")
-            print("***")
-            print(cls)
-            print("***")
-            print("==============")
-            for param in self.__session.query(our_class):
-                new_dic[cls + "." + param.id] = param
-            return new_dic
+            our_class = eval(cls)
+            for parameter in self.__session.query(our_class):
+                del parameter.__dict__['_sa_instance_state']
+                new_dic[cls + "." + parameter.id]=parameter
         else:
-            return new_dic
+            for item in classes:
+                for i in self.__session.query(item):
+                    del i.__dict__['_sa_instance_state']
+                    new_dic[item.__class__.__name__ + "." + i.id]= i
+        return new_dic
 
     def new(self, obj):
         self.__session.add(obj)
