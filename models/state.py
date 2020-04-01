@@ -5,6 +5,8 @@ from models.city import City
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 import os
+
+
 class State(BaseModel, Base):
     """This is the class for State
     Attributes:
@@ -20,8 +22,8 @@ class State(BaseModel, Base):
         def cities(self):
             """ cities """
             objs = storage.all()
-            list_obj = []
-            for obj in objs:
-                if obj.place_id == self.id and obj.__class__.__name__ == 'City':
-                    list_obj.append(obj)
-            return (list_obj)
+            list_ob = []
+            for ob in objs:
+                if ob.place_id == self.id and obj.__class__.__name__ == 'City':
+                    list_ob.append(obj)
+            return (list_ob)
