@@ -72,3 +72,8 @@ class FileStorage:
                     self.__objects[key] = value
         except FileNotFoundError:
             pass
+
+    @property
+    def cities(self):
+        """ attribute cities that returns the list of City instances """
+        return self.cities
