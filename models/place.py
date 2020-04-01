@@ -45,14 +45,15 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=False)
 
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
-        reviews = relationship('Review', cascade='all, delete', backref='place')
+        reviews = relationship('Review', cascade='all, delete',
+                               backref='place')
     else:
         @property
         def reviews(self):
             """reviews"""
             objs = storage.all()
             list_obj = []
-            for obj in objs:
-                if obj.place_id == self.id and obj.__class__.__name__ == 'Review':
+            for o in objs:
+                if o.place_id == self.id and o.__class__.__name__ == 'Review':
                     list_obj.append(obj)
             return (list_obj)
