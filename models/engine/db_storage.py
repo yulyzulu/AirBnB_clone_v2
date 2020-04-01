@@ -33,7 +33,6 @@ class DBStorage:
         if var_env == 'test':
             Base.metadata.drop_all(self.__engine)
 
-
     def all(self, cls=None):
         classes = [State, City, User, Place, Review, Amenity]
         new_dic = {}
@@ -41,12 +40,12 @@ class DBStorage:
             our_class = eval(cls)
             for parameter in self.__session.query(our_class):
                 del parameter.__dict__['_sa_instance_state']
-                new_dic[cls + "." + parameter.id]=parameter
+                new_dic[cls + "." + parameter.id] = parameter
         else:
             for item in classes:
                 for i in self.__session.query(item):
                     del i.__dict__['_sa_instance_state']
-                    new_dic[item.__class__.__name__ + "." + i.id]= i
+                    new_dic[item.__class__.__name__ + "." + i.id] = i
         return new_dic
 
     def new(self, obj):
