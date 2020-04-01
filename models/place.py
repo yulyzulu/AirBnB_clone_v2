@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 """This is the place class"""
-from models.base_model import BaseModel
-
-
-class Place(BaseModel):
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, Integer, Float, String, ForeignKey
+class Place(BaseModel, Base):
     """This is the class for Place
     Attributes:
         city_id: city id
@@ -29,10 +28,9 @@ class Place(BaseModel):
     latitude = 0.0
     longitude = 0.0
     amenity_ids = []
-
     __tablename__ = 'places'
-    city_id = Column(String(60), nullable=False, ForeignKey("cities.id"))
-    user_id = Column(String(60), nullable=False, ForeignKey("users.id"))
+    city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
+    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     name = Column(String(128), nullable=False)
     description = Column(String(1024), nullable=False)
     number_rooms = Column(Integer, nullable=False, default=0)
