@@ -5,17 +5,23 @@ from models.city import City
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 import os
-
-
 class State(BaseModel, Base):
     """This is the class for State
     Attributes:
         name: input name
     """
     name = ""
-
     __tablename__ = 'states'
-
     name = Column(String(128), nullable=False)
-
-    cities = relationship("City", cascade="all, delete", backref="state")
+    if os.getenv("HBNB_TYPE_STORAGE") == "db":
+        cities = relationship("City", cascade="all, delete", backref="state")
+    else:
+        @property
+        def cities(self):
+            """ cities """
+            objs = storage.all()
+            list_obj = []
+            for obj in objs:
+                if obj.place_id == self.id and obj.__class__.__name__ == 'City':
+                    list_obj.append(obj)
+            return (list_obj)

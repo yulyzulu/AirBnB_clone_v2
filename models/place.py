@@ -2,6 +2,8 @@
 """This is the place class"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, Float, String, ForeignKey
+
+
 class Place(BaseModel, Base):
     """This is the class for Place
     Attributes:
