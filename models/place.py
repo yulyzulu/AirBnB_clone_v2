@@ -41,3 +41,16 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
+
+    if os.getenv("HBNB_TYPE_STORAGE") == "db":
+        reviews = relationship('Review', cascade='all, delete', backref='place')
+    else:
+        @property
+        def reviews(self):
+            """reviews"""
+            objs = storage.all()
+            list_obj = []
+            for obj in objs:
+                if obj.place_id == self.id and obj.__class__.__name__ == 'Review':
+                    list_obj.append(obj)
+            return (list_obj)
