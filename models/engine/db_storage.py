@@ -49,7 +49,8 @@ class DBStorage:
         return new_dic
 
     def new(self, obj):
-        self.__session.add(obj)
+        if obj is not None:
+            self.__session.add(obj)
 
     def save(self):
         self.__session.commit()
