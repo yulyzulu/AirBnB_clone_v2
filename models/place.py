@@ -52,12 +52,11 @@ class Place(BaseModel, Base):
         Column('place_id', String(60), ForeignKey("places.id"), primary_key=True, nullable=False),
         Column('amenity_id', String(60), ForeignKey("amenities.id"), primary_key=True, nullable=False)
     )
-
-    reviews = relationship('Review', cascade='all, delete',
+    if os.getenv("HBNB_TYPE_STORAGE") ==  "db":
+        reviews = relationship('Review', cascade='all, delete',
                                backref='place')
-    amenities = relationship('Amenity', secondary=place_amenity, viewonly=False, back_populates='place_amenities')
-
-    if os.getenv("HBNB_TYPE_STORAGE") is not "db":                    
+        amenities = relationship('Amenity', secondary=place_amenity, viewonly=False, back_populates='place_amenities')
+    else:                    
         @property
         def reviews(self):
             """reviews"""
