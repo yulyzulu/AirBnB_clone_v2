@@ -53,11 +53,11 @@ class Place(BaseModel, Base):
         Column('amenity_id', String(60), ForeignKey("amenities.id"), primary_key=True, nullable=False)
     )
 
-    if os.getenv("HBNB_TYPE_STORAGE") == "db":
-        reviews = relationship('Review', cascade='all, delete',
+    reviews = relationship('Review', cascade='all, delete',
                                backref='place')
-        amenities = relationship('Amenity', secondary=place_amenity, viewonly=False, back_populates='place_amenities')
-    else:
+    amenities = relationship('Amenity', secondary=place_amenity, viewonly=False, back_populates='place_amenities')
+
+    if os.getenv("HBNB_TYPE_STORAGE") is not "db":                    
         @property
         def reviews(self):
             """reviews"""
