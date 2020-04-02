@@ -42,14 +42,10 @@ class DBStorage:
         if cls is not None:
             listies = self.__session.query(eval(cls)).all()
             for obj in listies:
-                if '_sa_instance_state' in obj.__dict__.keys():
-                    del obj.__dict__['_sa_instance_state']
                 new_dic[cls + "." + obj.id] = obj
         else:
             for table in co_relation:
                 for obj in self.__session.query(eval(table)).all():
-                    if '_sa_instance_state' in obj.__dict__.keys():
-                        del obj.__dict__['_sa_instance_state']
                     new_dic[table.__class__.__name__ + "." + obj.id] = obj
         return new_dic
 

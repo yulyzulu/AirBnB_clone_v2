@@ -58,7 +58,7 @@ class Place(BaseModel, Base):
         reviews = relationship('Review', cascade='all, delete',
                                backref='place')
         amenities = relationship('Amenity', secondary=place_amenity, viewonly=False, back_populates='place_amenities')
-    else:                    
+    else:
         @property
         def reviews(self):
             """reviews"""
@@ -73,8 +73,10 @@ class Place(BaseModel, Base):
         def amenities(self):
             """ amenities """
             objs = models.storage.all()
+            print(objs)
             list_obj = []
             for o in objs:
+                print(o)
                 if o.place_id == self.id and o.__class__.__name__ == 'Amenity':
                     list_obj.append(obj)
             return (list_obj)
