@@ -14,9 +14,11 @@ from models.review import Review
 from models.engine.file_storage import FileStorage
 
 
+@unittest.skipIf(
+    os.getenv('HBNB_TYPE_STORAGE') == 'db',
+    "This test only work in Filestorage")
 class TestFileStorage(unittest.TestCase):
     '''this will test the FileStorage'''
-
     @classmethod
     def setUpClass(cls):
         """set up for test"""
@@ -90,7 +92,6 @@ class TestFileStorage(unittest.TestCase):
             for line in r:
                 self.assertEqual(line, "{}")
         self.assertIs(self.storage.reload(), None)
-
 
 if __name__ == "__main__":
     unittest.main()

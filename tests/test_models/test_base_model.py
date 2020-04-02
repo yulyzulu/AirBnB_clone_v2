@@ -8,7 +8,6 @@ import pep8
 
 class TestBaseModel(unittest.TestCase):
     """this will test the base model class"""
-
     @classmethod
     def setUpClass(cls):
         """setup for the test"""
@@ -52,6 +51,9 @@ class TestBaseModel(unittest.TestCase):
         """test if the base is an type BaseModel"""
         self.assertTrue(isinstance(self.base, BaseModel))
 
+    @unittest.skipIf(
+        os.getenv('HBNB_TYPE_STORAGE') == 'db',
+        "This test only work in Filestorage")
     def test_save_BaesModel(self):
         """test if the save works"""
         self.base.save()
@@ -63,7 +65,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(self.base.__class__.__name__, 'BaseModel')
         self.assertIsInstance(base_dict['created_at'], str)
         self.assertIsInstance(base_dict['updated_at'], str)
-
 
 if __name__ == "__main__":
     unittest.main()
