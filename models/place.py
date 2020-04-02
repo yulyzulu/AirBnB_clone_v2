@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, Float, String, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy import *
+import models
 import os
 
 
@@ -52,6 +53,7 @@ class Place(BaseModel, Base):
         Column('place_id', String(60), ForeignKey("places.id"), primary_key=True, nullable=False),
         Column('amenity_id', String(60), ForeignKey("amenities.id"), primary_key=True, nullable=False)
     )
+
     if os.getenv("HBNB_TYPE_STORAGE") ==  "db":
         reviews = relationship('Review', cascade='all, delete',
                                backref='place')
@@ -60,7 +62,7 @@ class Place(BaseModel, Base):
         @property
         def reviews(self):
             """reviews"""
-            objs = storage.all()
+            objs = models.storage.all()
             list_obj = []
             for o in objs:
                 if o.place_id == self.id and o.__class__.__name__ == 'Review':
@@ -70,7 +72,7 @@ class Place(BaseModel, Base):
         @property
         def amenities(self):
             """ amenities """
-            objs = storage.all()
+            objs = models.storage.all()
             list_obj = []
             for o in objs:
                 if o.place_id == self.id and o.__class__.__name__ == 'Amenity':

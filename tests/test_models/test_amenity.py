@@ -1,11 +1,20 @@
 #!/usr/bin/python3
 """test for amenity"""
-import unittest
-import os
+import models
 from models.amenity import Amenity
 from models.base_model import BaseModel
+from models.base_model import Base
+from models.state import State
+from models.city import City
+from models.user import User
+from models.place import Place
+from models.review import Review
+from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy import (create_engine)
+from sqlalchemy import MetaData
+import unittest
 import pep8
-
+import os
 
 class TestAmenity(unittest.TestCase):
     """this will test the Amenity class"""
@@ -78,7 +87,7 @@ class TestAmenity(unittest.TestCase):
         my_place2.amenities.append(amenity_1)
         my_place2.amenities.append(amenity_2)
         my_place2.amenities.append(amenity_3)
-        storage.save()
+        models.storage.save()
         if amenity_1.id in models.storage.all():
             self.assertEqual(amenity_1.name, "Wifi")
         if amenity_2.id in models.storage.all():
@@ -90,7 +99,6 @@ class TestAmenity(unittest.TestCase):
         self.assertIn(amenity_1.id, my_place2)
         self.assertIn(amenity_2.id, my_place2)
         self.assertIn(amenity_3.id, my_place2)
-
 
 
 if __name__ == "__main__":
