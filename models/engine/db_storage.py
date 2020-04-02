@@ -42,12 +42,14 @@ class DBStorage:
         if cls is not None:
             listies = self.__session.query(eval(cls)).all()
             for obj in listies:
-                del obj.__dict__['_sa_instance_state']
+                if '_sa_instance_state' in obj.__dict__.keys():
+                    del obj.__dict__['_sa_instance_state']
                 new_dic[cls + "." + obj.id] = obj
         else:
             for table in co_relation:
                 for obj in self.__session.query(eval(table)).all():
-                    del obj.__dict__['_sa_instance_state']
+                    if '_sa_instance_state' in obj.__dict__.keys():
+                        del obj.__dict__['_sa_instance_state']
                     new_dic[table.__class__.__name__ + "." + obj.id] = obj
         return new_dic
 
@@ -64,7 +66,7 @@ class DBStorage:
             DBStorage.save()
 
     def reload(self):
+        Base.metadata.create_all(self.__engine)
         our_session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(our_session)
         self.__session = Session()
-        Base.metadata.create_all(self.__engine)
