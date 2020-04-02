@@ -25,27 +25,30 @@ class DBStorage:
         sql_passwd = os.getenv("HBNB_MYSQL_PWD")
         sql_host = os.getenv("HBNB_MYSQL_HOST")
         sql_db = os.getenv("HBNB_MYSQL_DB")
-
         self.__engine = create_engine("mysql+mysqldb:\
 //{}:{}@{}:3306/{}".format(sql_user, sql_passwd, sql_host, sql_db),
             pool_pre_ping=True)
-
         if var_env == 'test':
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        classes = [State, City, User, Place, Review, Amenity]
+        """returns a dictionary
+        Return:
+            returns a dictionary of __session
+        """
+        co_relation = ["State", "City", "User", "Place", "Review", "Amenity"]
         new_dic = {}
+        listies = []
         if cls is not None:
-            our_class = eval(cls)
-            for parameter in self.__session.query(our_class):
-                del parameter.__dict__['_sa_instance_state']
-                new_dic[cls + "." + parameter.id] = parameter
+            listies = self.__session.query(eval(cls)).all()
+            for obj in listies:
+                del obj.__dict__['_sa_instance_state']
+                new_dic[cls + "." + obj.id] = obj
         else:
-            for item in classes:
-                for i in self.__session.query(item):
-                    del i.__dict__['_sa_instance_state']
-                    new_dic[item.__class__.__name__ + "." + i.id] = i
+            for table in co_relation:
+                for obj in self.__session.query(eval(table)).all():
+                    del obj.__dict__['_sa_instance_state']
+                    new_dic[table.__class__.__name__ + "." + obj.id] = obj
         return new_dic
 
     def new(self, obj):
