@@ -9,7 +9,6 @@ import pep8
 
 class TestPlace(unittest.TestCase):
     """this will test the place class"""
-
     @classmethod
     def setUpClass(cls):
         """set up for test"""
@@ -83,6 +82,9 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(type(self.place.longitude), float)
         self.assertEqual(type(self.place.amenity_ids), list)
 
+    @unittest.skipIf(
+        os.getenv('HBNB_TYPE_STORAGE') == 'db',
+        "This test only work in Filestorage")
     def test_save_Place(self):
         """test if the save works"""
         self.place.save()
@@ -91,7 +93,6 @@ class TestPlace(unittest.TestCase):
     def test_to_dict_Place(self):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.place), True)
-
 
 if __name__ == "__main__":
     unittest.main()
