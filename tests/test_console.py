@@ -22,6 +22,9 @@ from models.engine.file_storage import FileStorage
 class TestConsole(unittest.TestCase):
     """this will test the console"""
 
+    @unittest.skipIf(
+        os.getenv('HBNB_TYPE_STORAGE') == 'db',
+        "This test only work in Filestorage")
     @classmethod
     def setUpClass(cls):
         """setup for the test"""
@@ -231,6 +234,7 @@ class TestConsole(unittest.TestCase):
             self.consol.onecmd("User.update(" + my_id + ", name)")
             self.assertEqual(
                 "** value missing **\n", f.getvalue())
+
 
 if __name__ == "__main__":
     unittest.main()
