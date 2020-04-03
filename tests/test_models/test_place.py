@@ -9,6 +9,7 @@ import pep8
 
 class TestPlace(unittest.TestCase):
     """this will test the place class"""
+
     @classmethod
     def setUpClass(cls):
         """set up for test"""
@@ -48,7 +49,7 @@ class TestPlace(unittest.TestCase):
         self.assertIsNotNone(Place.__doc__)
 
     def test_attributes_Place(self):
-        """chekcing if amenity have attributes"""
+        """checking if amenity have attributes"""
         self.assertTrue('id' in self.place.__dict__)
         self.assertTrue('created_at' in self.place.__dict__)
         self.assertTrue('updated_at' in self.place.__dict__)
@@ -93,6 +94,7 @@ class TestPlace(unittest.TestCase):
     def test_to_dict_Place(self):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.place), True)
+
 
 if __name__ == "__main__":
     unittest.main()

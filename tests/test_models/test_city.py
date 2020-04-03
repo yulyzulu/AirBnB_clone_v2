@@ -6,6 +6,7 @@ from models.city import City
 from models.base_model import BaseModel
 import pep8
 
+
 class TestCity(unittest.TestCase):
     """this will test the city class"""
     @classmethod
@@ -57,7 +58,6 @@ class TestCity(unittest.TestCase):
     @unittest.skipIf(
         os.getenv('HBNB_TYPE_STORAGE') == 'db',
         "This test only work in Filestorage")
-
     def test_save_City(self):
         """test if the save works"""
         self.city.save()
@@ -67,5 +67,6 @@ class TestCity(unittest.TestCase):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.city), True)
 
+
 if __name__ == "__main__":
-   unittest.main()
+    unittest.main()

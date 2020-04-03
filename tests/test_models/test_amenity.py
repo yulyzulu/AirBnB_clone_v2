@@ -6,6 +6,7 @@ from models.amenity import Amenity
 from models.base_model import BaseModel
 import pep8
 
+
 class TestAmenity(unittest.TestCase):
     """this will test the Amenity class"""
     @classmethod
@@ -52,9 +53,8 @@ class TestAmenity(unittest.TestCase):
         self.assertEqual(type(self.amenity.name), str)
 
     @unittest.skipIf(
-    os.getenv('HBNB_TYPE_STORAGE') == 'db',
+        os.getenv('HBNB_TYPE_STORAGE') == 'db',
         "This test only work in Filestorage")
-
     def test_save_Amenity(self):
         """test if the save works"""
         self.amenity.save()
@@ -64,5 +64,6 @@ class TestAmenity(unittest.TestCase):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.amenity), True)
 
+
 if __name__ == "__main__":
-   unittest.main()
+    unittest.main()

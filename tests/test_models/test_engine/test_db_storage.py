@@ -15,12 +15,13 @@ from models.engine.db_storage import DBStorage
 from models.engine.file_storage import FileStorage
 import MySQLdb
 
+
 @unittest.skipIf(
        os.getenv('HBNB_TYPE_STORAGE') != 'db',
        "This test only work in DBStorage")
-
 class TestDBStorage(unittest.TestCase):
-    '''this will test the DBStorage'''
+    """this will test the DBStorage"""
+
     @classmethod
     def setUpClass(cls):
         """Tests"""
@@ -34,12 +35,14 @@ class TestDBStorage(unittest.TestCase):
     def teardown(cls):
         """at the end of the test this will tear it down"""
         del cls.user
+
     def tearDown(self):
         """teardown"""
         try:
             os.remove("file.json")
         except Exception:
             pass
+
     def test_pep8_DBStorage(self):
         """Tests pep8 style"""
         style = pep8.StyleGuide(quiet=True)
@@ -66,7 +69,9 @@ class TestDBStorage(unittest.TestCase):
         self.assertIsNotNone(obj[key])
 
     def test_reload_dbtorage(self):
-        """tests reload """
+        """
+        tests reload
+        """
         self.storage.save()
         Root = os.path.dirname(os.path.abspath("console.py"))
         path = os.path.join(Root, "file.json")
@@ -91,6 +96,6 @@ class TestDBStorage(unittest.TestCase):
                 self.assertEqual(line, "{}")
         self.assertIs(self.storage.reload(), None)
 
-if __name__ == "__main__":
-   unittest.main()
 
+if __name__ == "__main__":
+    unittest.main()
