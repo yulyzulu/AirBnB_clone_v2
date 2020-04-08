@@ -22,6 +22,7 @@ def do_deploy(archive_path):
         sudo("rm -rf /data/web_static/releases/{}/web_static/".format(path2[0]))
         sudo("rm -rf /data/web_static/current")
         sudo("ln -s /data/web_static/releases/{} /data/web_static/current".format(path2[0]))
+        print("New version deployed!")
         return True
     else:
         return False
