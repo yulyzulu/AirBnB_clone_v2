@@ -8,7 +8,6 @@ do_deploy = __import__('2-do_deploy_web_static').do_deploy
 
 env.host = ['35.231.167.55', '34.236.146.248']
 
-#if __name__ == "__main__":
 
 def deploy():
     """deploy function"""
