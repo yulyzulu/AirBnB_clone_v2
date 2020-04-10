@@ -48,6 +48,7 @@ ic/current".format(path2[0]))
     else:
         return False
 
+
 @task
 def deploy():
     """deploy function"""
