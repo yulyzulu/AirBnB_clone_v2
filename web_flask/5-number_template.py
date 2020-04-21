@@ -44,4 +44,5 @@ def display_template(n):
     """Method that in the route "/number_template/<int:n>" display template"""
     return render_template('5-number.html', n=n)
 
-app.run(host='0.0.0.0', port=5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)

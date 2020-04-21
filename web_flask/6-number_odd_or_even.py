@@ -56,4 +56,5 @@ def display_template_num(n):
     return render_template('6-number_odd_or_even.html', n=n, odd_even=odd_even)
 
 
-app.run(host='0.0.0.0', port=5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
