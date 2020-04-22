@@ -12,6 +12,7 @@ app = Flask(__name__)
 def delete_SQLA(self):
     storage.close()
 
+
 @app.route('/states_list', strict_slashes=False)
 def display_HTML():
     states = storage.all('State')
