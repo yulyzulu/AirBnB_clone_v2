@@ -16,8 +16,7 @@ def delete_SQLA(self):
 @app.route('/cities_by_states', strict_slashes=False)
 def display_HTML():
     state = storage.all('State')
-    city = storage.all('City')
-    return render_template('8-cities_by_states.html', state=state, city=city)
+    return render_template('8-cities_by_states.html', state=state)
 
 
 if __name__ == '__main__':
