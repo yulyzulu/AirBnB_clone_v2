@@ -39,8 +39,14 @@ class DBStorage:
         co_relation = ["State", "City", "User", "Place", "Review", "Amenity"]
         new_dic = {}
         listies = []
-        if cls is not None:
-            listies = self.__session.query(eval(cls)).all()
+        if type(cls) is not str:
+            clss = cls
+            cls = str(cls)
+        else:
+            clss = eval(cls)
+
+        if clss is not None:
+            listies = self.__session.query(clss).all()
             for obj in listies:
                 new_dic[cls + "." + obj.id] = obj
         else:
@@ -66,3 +72,6 @@ class DBStorage:
         our_session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(our_session)
         self.__session = Session()
+
+    def close(self):
+        self.__session.remove()

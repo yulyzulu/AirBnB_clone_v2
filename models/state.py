@@ -24,6 +24,7 @@ class State(BaseModel, Base):
             objs = storage.all()
             list_ob = []
             for ob in objs:
-                if ob.place_id == self.id and obj.__class__.__name__ == 'City':
-                    list_ob.append(obj)
+#                if ob.place_id == self.id and obj.__class__.__name__ == 'City':
+                if 'City' in key and value.state_id == self.id:
+                    list_ob.append(value)
             return (list_ob)
