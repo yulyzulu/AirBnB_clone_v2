@@ -10,14 +10,16 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def delete_SQLA(self):
+    """Remove the current SQLAlchemySession"""
     storage.close()
 
 
 @app.route('/hbnb_filters', strict_slashes=False)
 def display_HTML():
+    """Display a html with states, cities and amenities"""
     states = storage.all('State')
-    amenity = storage.all('Amenity')
-    return render_template('10-hbnb_filters.html', states=states, amenity=amenity)
+    ame = storage.all('Amenity')
+    return render_template('10-hbnb_filters.html', states=states, amenity=ame)
 
 
 if __name__ == '__main__':
