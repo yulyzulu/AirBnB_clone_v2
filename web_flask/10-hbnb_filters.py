@@ -14,9 +14,10 @@ def delete_SQLA(self):
 
 
 @app.route('/hbnb_filters', strict_slashes=False)
-def display_HTML(id=None):
+def display_HTML():
     states = storage.all('State')
-    return render_template('10-hbnb_filters.html', states=states)
+    amenity = storage.all('Amenity')
+    return render_template('10-hbnb_filters.html', states=states, amenity=amenity)
 
 
 if __name__ == '__main__':
